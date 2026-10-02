@@ -1,10 +1,11 @@
 <project name="WeaveServices" basedir=".">
+    <property name="JAVA_LIBS" value="/usr/share/java"/>
     <path id="classpath">
         <fileset dir="lib" includes="**/*.jar"/>
         <fileset dir="../WeaveServletUtils/lib/" includes="**/*.jar"/>
         <pathelement path="../WeaveServletUtils/bin/classes"/>
-        <fileset dir="/usr/share/java/" includes="junit4.jar"/>
-        <fileset dir="/usr/share/java/" includes="servlet-api-2.5.jar"/>
+        <fileset dir="${JAVA_LIBS}" includes="junit4.jar"/>
+        <fileset dir="${JAVA_LIBS}" includes="servlet-api-2.5.jar"/>
     </path>
     <target name="clean">
         <delete dir="bin"/>
