@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- This is the build script to build all the projects and their dependencies. To use these scripts, you must
-	first do the following
-	1) Setup FLEX_HOME as an operating system environment variable pointing to where you installed your Flex 3.6A SDK.
-		This Flex 3.6A SDK must be downloaded directly from Adobe-do not attempt to merge the SDK provided in FlashBuilder.
-		e.g.) C:\Flex 3.6A SDK
-	2) Add the Flex 3.6A SDK's bin folder to your operating system's PATH variable.
-	3) Add ANT's bin folder to your operating system's PATH variable.
-		e.g.) C:\ant\bin
-	 Change FRAMEWORK_SWF property below to be the filename of the framework_*.swf file.
-		For example, if yours is
-		${FLEX_HOME}/frameworks/rsls/framework_3.6.0.21751.swf
-		then the FRAMEWORK_SWF would be framework_3.6.0.21751.swf
-	5) Restart Eclipse to let it register the updated PATH.
-	6) Change WEAVE_DOCROOT property located in this file. It should be the same as the WEAVE_DOCROOT
-		defined in your linked resources variable if you are using Eclipse.
-	7) From command prompt, change into the WeaveClient directory and perform this command
-		ant -f buildall.xml install
-		This will build all the files in order and push the necessary ones to WEAVE_DOCROOT.
-		-->
+<!-- Builds all the Weave projects and their dependencies.
+	Requirements (scripts/bootstrap.sh in WeaveJS installs all of these into .toolchain/):
+	1) Java 7. Ant must run on it; Flex 4.5.1's compiler fails under Java 8.
+	2) Apache Ant 1.9, with ANT_OPTS including -XX:MaxPermSize=1024m.
+	3) FLEX_HOME set to the Adobe Flex 4.5.1 SDK (4.5.1.21328A). The *_SWF properties in
+	   build.properties name that SDK's framework RSLs.
+	4) servlet-api-2.5.jar and junit4.jar in /usr/share/java, or pass -DJAVA_LIBS=<dir>.
+	Targets:
+	  ant dist     builds everything into ROOT/ and packages weave.zip (ROOT/ + WeaveServices.war).
+	  ant install  also copies the client to WEAVE_DOCROOT. Set it in user.properties first.
+	-->
 <project name="Weave" basedir="." default="build">
 	<property environment="env"/>
 	<property file="user.properties"/>

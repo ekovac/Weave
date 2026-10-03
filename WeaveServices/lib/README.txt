@@ -1,3 +1,6 @@
+Note (2026): these instructions date from 2011 and target Windows with R 2.13.1. They have not
+been re-tested since this fork was revived; current R and rJava releases may need different steps.
+
 Installation instructions for Weave server-side R support
 
 1.	Install R (Latest version as of this document is R.2.13.1 which includes rJava library as part of it)

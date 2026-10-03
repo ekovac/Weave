@@ -1,65 +1,65 @@
 # End-user requirements
 
-* Adobe Flash Player 10.0+
+* A Flash runtime: Adobe Flash Player 10.0+ (discontinued) or [Ruffle](https://ruffle.rs). Running Weave under Ruffle hasn't been verified yet.
 
 # Server requirements
 
-* Java Servlet Container (Tomcat, Glassfish, or Jetty)
+* A Java servlet container that implements `javax.servlet` (Servlet 2.5 or later), such as Tomcat 9 or earlier, or Jetty. Tomcat 10 and later switched to `jakarta.servlet` and can't run `WeaveServices.war`.
 * MySQL or PostgreSQL
 
-# Installation
+Deploying the server hasn't been tested since this fork was revived in 2026.
 
-1. Install the following packages (Ubuntu/Debian):
-   * oracle-java7-jdk
-   * ant
-   * tomcat7
-   * git
-   * junit4
-   * libservlet2.5-java
+# Building
+
+The easiest way to build is through [WeaveJS](https://github.com/ekovac/WeaveJS): its `scripts/bootstrap.sh` installs everything below into `.toolchain/`, and `npm run compile-weave` runs `ant dist` in this repository. To build standalone:
+
+1. Install a Java 7 JDK and Apache Ant 1.9. Linux distributions no longer package Java 7, but [Azul Zulu 7](https://www.azul.com/downloads/?version=java-7-lts&os=linux&package=jdk) is still available. Flex 4.5.1's compiler fails under Java 8 and later.
 2. Download the [Adobe Flex 4.5.1A SDK](http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.5/flex_sdk_4.5.1.21328A.zip) and extract it to a directory in your home directory, something like `~/bin/flex`.
-3. Add the following lines to your `.bashrc` or equivalent, modified as appropriate to the path chosen in step 2:
+3. Download [servlet-api-2.5.jar](https://repo1.maven.org/maven2/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar) and [junit-4.12.jar](https://repo1.maven.org/maven2/junit/junit/4.12/junit-4.12.jar), and save them in one directory as `servlet-api-2.5.jar` and `junit4.jar`, for example `~/bin/javalibs`.
+4. Add the following lines to your `.bashrc` or equivalent, modified as appropriate to the paths chosen above:
 
    ```sh
+   export JAVA_HOME=~/bin/zulu7
    export FLEX_HOME=~/bin/flex
-   export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
+   export ANT_OPTS="-XX:MaxPermSize=1024m -Xms256M -Xmx2G -DJAVA_LIBS=$HOME/bin/javalibs"
+   export PATH="$JAVA_HOME/bin:$PATH"
    ```
 
    Additionally, run these lines in your working terminal, or open a fresh terminal to ensure the environment variables are set.
-4. Clone the Weave git repository either read-only:
+5. Clone the Weave git repository and enter it:
 
    ```sh
-   git clone git://github.com/WeaveTeam/Weave.git
+   git clone https://github.com/ekovac/Weave.git
+   cd Weave
+   ```
+6. To use `ant install`, create a `user.properties` file that sets `WEAVE_DOCROOT` to a directory writable by your user, from which your servlet container will serve the client:
+
+   ```properties
+   WEAVE_DOCROOT=/home/user/pub/app
    ```
 
-   Or, if you are a contributor:
+   The `*_SWF` variables in `build.properties` already match the Flex 4.5.1A SDK.
+7. Build and install:
 
    ```sh
-   git clone git@github.com:WeaveTeam/Weave.git
-   ```
-5. Enter the resulting Weave directory.
-6. Edit the `build.properties` file. Be sure to set `WEAVE_DOCROOT` to some path writable by your user, and to set the various `*_SWF` variables to match the names of those present in your version of the Flex SDK. (The default values for the `*_SWF` variables are set with Flex 4.5.1A in mind.)
-7. Run:
-
-   ```sh
-   ANT_OPTS='-XX:MaxPermSize=1024m -Xms256M -Xmx512M' ant install
-   ```
-8. Open a new file at `/etc/tomcat7/Catalina/localhost/weave.xml`, i.e.
-
-   ```sh
-   sudo vim /etc/tomcat7/Catalina/localhost/weave.xml
+   ant install
    ```
 
-   And add the following line, modifying `docBase` to match the value of `WEAVE_DOCROOT`:
+   This copies the client to `WEAVE_DOCROOT` and `WeaveServices.war` to the directory above it. Alternatively, `ant dist` builds a `weave.zip` containing both the `WeaveServices.war` and the Weave `ROOT` folder, so you can deploy it on another system.
+
+# Deploying to Tomcat
+
+1. Create `conf/Catalina/localhost/weave.xml` in your Tomcat directory (for distribution packages, under `/etc/tomcat9/`, for example), so that Tomcat serves `WEAVE_DOCROOT` at `/weave`:
 
    ```xml
-   <Context path="/weave" docBase="/home/user/pub/app"/>
+   <Context docBase="/home/user/pub/app"/>
    ```
-9. Copy `WeaveServices.war` from the source directory into `/var/lib/tomcat7/webapps`.
-10. Restart the tomcat service as appropriate for your distribution. For example, on Ubuntu/Debian:
 
-    ```sh
-    sudo service tomcat7 restart
-    ```
-11. Open your browser and enter `http://localhost:8080/weave/weave.html` or `http://localhost:8080/weave/AdminConsole.html` to test.
+   Modify `docBase` to match the value of `WEAVE_DOCROOT`.
+2. Copy `WeaveServices.war` into Tomcat's `webapps` directory (for example `/var/lib/tomcat9/webapps`).
+3. Restart Tomcat as appropriate for your distribution, for example:
 
-Alternatively, the `dist` target may be used to build a zip file containing both the `WeaveServices.war` and the Weave `ROOT` folder so you can deploy it on another system.
+   ```sh
+   sudo systemctl restart tomcat9
+   ```
+4. Open `http://localhost:8080/weave/weave.html` or `http://localhost:8080/weave/AdminConsole.html` in your browser to test.

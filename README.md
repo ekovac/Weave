@@ -2,7 +2,7 @@
 ## Visit us at [our site](http://iweave.com)
 
 # Status of this fork
-This is a fork of [WeaveTeam/Weave](https://github.com/WeaveTeam/Weave), whose development stopped in 2017. In 2026 it was revived just enough to build again with a reproducible toolchain. **That work has not been extensively tested.** Treat this as software archaeology, not a maintained product.
+This is a fork of [WeaveTeam/Weave](https://github.com/WeaveTeam/Weave), whose development stopped in 2017. In 2026 it was revived just enough to build again with a reproducible toolchain. **That work has not been extensively tested.** Treat this as software archaeology, not a maintained product: this project is very, very stale, and I don't anticipate maintaining it.
 
 What has been verified:
 
@@ -35,11 +35,11 @@ The easiest way to build is through [WeaveJS](https://github.com/ekovac/WeaveJS)
 Weave is distributed under the [MPL-2.0](https://www.mozilla.org/en-US/MPL/2.0/) license.
 
 # Download
-[Installation Guide](http://info.iweave.com/projects/weave/wiki/Deployment_Guide)
+[Releases of this fork](https://github.com/ekovac/Weave/releases)
 
-[Releases](https://github.com/WeaveTeam/Weave-Binaries/releases)
+[Installation Guide](INSTALL-LINUX.md)
 
-[Nightly build](https://github.com/WeaveTeam/Weave-Binaries/zipball/master)
+Older upstream builds: [releases](https://github.com/WeaveTeam/Weave-Binaries/releases) and [last nightly build](https://github.com/WeaveTeam/Weave-Binaries/zipball/master) from WeaveTeam/Weave-Binaries.
 
 # Documentation
 You can find the Admin Console User Guide [here](http://info.iweave.com/projects/weave/wiki/Weave_Administration_Console_User_Guide)
@@ -63,7 +63,7 @@ Components in this repository:
  * GeometryStreamConverter: Java library for converting geometries into a streaming format. Binary included in WeaveServices/lib.
  * JTDS_SqlServerDriver: Java library for handling connections to Microsoft SQL Server. Binary included in WeaveServletUtils/lib.
 
-The bare minimum you need to build Weave is [Flex 4.5.1.A](http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.5/flex_sdk_4.5.1.21328A.zip) and [Java EE](http://www.oracle.com/technetwork/java/javaee/downloads/index.html).  However, we recommend the following setup: http://info.oicweave.org/projects/weave/wiki/Development_environment_setup
+To build Weave you need a Java 7 JDK, Apache Ant 1.9 and the [Adobe Flex 4.5.1A SDK](http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.5/flex_sdk_4.5.1.21328A.zip). [WeaveJS](https://github.com/ekovac/WeaveJS)'s `scripts/bootstrap.sh` installs all three.
 
 To build the projects on the command line, use the **build.xml** Ant script. To create a ZIP file for deployment on another system (much like the nightlies,) use the **dist** target.
 

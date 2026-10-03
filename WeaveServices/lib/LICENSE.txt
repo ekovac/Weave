@@ -1,17 +1,10 @@
 Weave is licensed under MPL-2.0.
-Below is a list of JAR files included in Weave, organized by their licenses.
+Below is a list of the JAR files in this directory (bundled into WeaveServices.war), organized by their licenses.
+JAR files from WeaveServletUtils/lib are listed in WeaveServletUtils/lib/LICENSE.txt.
 
 Apache 2.0
 	commons-beanutils-1.7.0.jar
-	commons-io-1.4.jar
-        jasypt-1.9.2.jar (http://www.jasypt.org/)
 
-LGPL 3.0
-	BlazeDS - http://opensource.adobe.com/wiki/display/blazeds/License
-		flex-messaging-common.jar
-		flex-messaging-core.jar
-	org.heatonresearch.httprecipes.html.PeekableInputStream
-	
 GPL 3.0
 	GeometryStreamConverter.jar
 
@@ -29,17 +22,17 @@ LGPL version 2 or later
 
 BSD-style
 	jsr-275-1.0-beta-2.jar - http://jscience.org/doc/license.txt
-	postgresql-9.0-801.jdbc3.jar - http://jdbc.postgresql.org/license.html
-	paranamer-2.3.jar - https://github.com/paul-hammant/paranamer
 
 GPL 2.0
-	mysql-connector-java-5.1.14-bin.jar - http://www.mysql.com/about/legal/licensing/foss-exception/
 	postgis-jdbc-2.0.1SVN.jar - http://postgis.net/
 	vecmath.jar (version 1.5.2) - http://download.java.net/media/java3d/builds/release/1.5.2/LICENSE-GPLv2.txt
-	
+
 Other
 	GeoAPI - http://www.opengeospatial.org/ogc/legal
 		geoapi-2.3-M1.jar
 		geoapi-pending-2.3-M1.jar
-		
-	ojdbc5.jar - http://www.oracle.com/technetwork/licenses/distribution-license-152002.html
+
+Not yet confirmed (the JAR files don't state a license)
+	JRI - http://rforge.net/JRI/
+		JRI.jar
+		JRIEngine.jar
