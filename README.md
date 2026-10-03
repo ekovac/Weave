@@ -23,7 +23,7 @@ Known caveats:
 * The bundled Java libraries and JDBC drivers date from 2010–2015 and have not been audited. Don't expose the services to untrusted networks.
 * Many links further down (the info.iweave.com wiki, the asdoc pages, the development environment guide) no longer resolve.
 
-The easiest way to build is through [WeaveJS](https://github.com/ekovac/WeaveJS), which includes this repository as a submodule. Its `scripts/bootstrap.sh` installs the whole toolchain, and `npm run compile-weave` runs `ant dist` here. To build this repository standalone, see INSTALL-LINUX.md. Also pass `-DJAVA_LIBS=<dir>` to Ant if `servlet-api-2.5.jar` and `junit4.jar` aren't in `/usr/share/java`.
+The easiest way to build is through [WeaveJS](https://github.com/ekovac/WeaveJS), which includes this repository as a submodule. Its `scripts/bootstrap.sh` installs the whole toolchain, and `npm run compile-weave` runs `ant dist` here. To build this repository standalone, see [INSTALL-LINUX.md](INSTALL-LINUX.md). Also pass `-DJAVA_LIBS=<dir>` to Ant if `servlet-api-2.5.jar` and `junit4.jar` aren't in `/usr/share/java`.
 
 ## This repository is for Weave version 1.9 ([Wiki](http://info.iweave.com/projects/weave/wiki)).
 
@@ -67,5 +67,5 @@ The bare minimum you need to build Weave is [Flex 4.5.1.A](http://fpdownload.ado
 
 To build the projects on the command line, use the **build.xml** Ant script. To create a ZIP file for deployment on another system (much like the nightlies,) use the **dist** target.
 
-See install-linux.md for detailed linux install instructions.
+See [INSTALL-LINUX.md](INSTALL-LINUX.md) for detailed Linux install instructions.
 
